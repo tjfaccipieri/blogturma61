@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Grid, Button } from '@material-ui/core';
 import { Box } from '@mui/material';
+import './Home.css'
 
 function Home() {
   return (
@@ -10,15 +11,15 @@ function Home() {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        style={{ backgroundColor: '#3F51B5' }}
+        style={{ backgroundColor: 'var(--blue-600)' }}
       >
         <Grid alignItems="center" item xs={6}>
-          <Box paddingX={20}>
+          <Box paddingX={20}  >
             <Typography
               variant="h3"
               gutterBottom
               color="textPrimary"
-              component="h3"
+              component="p"
               align="center"
               style={{ color: 'white', fontWeight: 'bold' }}
             >
@@ -41,7 +42,7 @@ function Home() {
               variant="outlined"
               style={{
                 borderColor: 'white',
-                backgroundColor: '#3F51B5',
+                backgroundColor: 'var(--blue-600)',
                 color: 'white',
               }}
             >
@@ -51,10 +52,9 @@ function Home() {
         </Grid>
         <Grid item xs={6}>
           <img
-            src="https://i.imgur.com/H88yIo2.png"
+            src="https://i.imgur.com/XEmGzkd.png"
             alt=""
-            width="500px"
-            height="500px"
+            className='fotoHome'
           />
         </Grid>
         <Grid xs={12} style={{ backgroundColor: 'white' }}></Grid>

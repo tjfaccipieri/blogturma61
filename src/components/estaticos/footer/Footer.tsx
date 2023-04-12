@@ -14,8 +14,8 @@ function Footer() {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid alignItems="center" item xs={12}>
-          <Box style={{ backgroundColor: '#3F51B5', height: '120px' }}>
+        <Box display={'flex'} alignItems="center" style={{ backgroundColor: 'var(--blue-900)', height: '120px' }} width={'100%'} justifyContent={'space-around'}>
+          <Box >
             <Box
               paddingTop={1}
               display="flex"
@@ -52,31 +52,32 @@ function Footer() {
               </a>
             </Box>
           </Box>
-          <Box style={{ backgroundColor: '#303F9F', height: '60px' }}>
+          <Box >
             <Box paddingTop={1}>
               <Typography
-                variant="subtitle2"
+                variant="h5"
                 align="center"
                 gutterBottom
                 style={{ color: 'white' }}
+                component={'span'}
               >
-                © 2020 Copyright:
+                © 2023 Copyright: {' '}
               </Typography>
-            </Box>
-            <Box>
+            
               <a target="_blank" href="https://brasil.generation.org">
                 <Typography
-                  variant="subtitle2"
+                  variant="h5"
                   gutterBottom
                   style={{ color: 'white' }}
                   align="center"
+                  component={'span'}
                 >
                   brasil.generation.org
                 </Typography>
               </a>
             </Box>
           </Box>
-        </Grid>
+        </Box>
       </Grid>
     </>
   );
