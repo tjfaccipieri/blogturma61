@@ -88,6 +88,7 @@ function CadastroUsuario() {
                   onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
                   label='Nome completo'
                   margin='normal'
+                  required
                   fullWidth />
                 <TextField
                   variant='outlined'
@@ -96,6 +97,8 @@ function CadastroUsuario() {
                   onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
                   label='Usuário (endereço de e-mail)'
                   margin='normal'
+                  required
+                  type='email'
                   fullWidth />
                 <TextField
                   variant='outlined'
