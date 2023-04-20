@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CadastroUsuario from './paginas/cadastroUsuario/CadastroUsuario'
 import ListaTemas from './components/temas/listaTemas/ListaTemas'
 import ListaPostagens from './components/postagens/listaPostagens/ListaPostagens'
+import CadastroTema from './components/temas/cadastroTema/CadastroTema'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/cadastrarUsuario' element={<CadastroUsuario />} />
           <Route path='/temas' element={<ListaTemas />} />
           <Route path='/postagens' element={<ListaPostagens />} />
+          <Route path='/cadastrarTema' element={<CadastroTema />} />
         </Routes>
       </div>
       <Footer />

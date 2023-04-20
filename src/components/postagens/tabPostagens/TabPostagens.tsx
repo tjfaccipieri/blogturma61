@@ -16,7 +16,7 @@ function TabPostagens() {
   // TabIndicatorProps={{style: {display: 'none'}}}
   return (
     <TabContext value={value}>
-        <AppBar position="static" className='barrinha' style={{color: '#fcfcfc'}}>
+        <AppBar position="static" className='barrinha'>
           <TabList centered indicatorColor='primary' onChange={handleChange}  aria-label="simple tabs example">
             <Tab  label="Postagens" value="1"  />
             <Tab label="Sobre o projeto" value="2" />

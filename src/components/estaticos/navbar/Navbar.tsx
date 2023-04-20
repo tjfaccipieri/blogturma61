@@ -38,9 +38,11 @@ function Navbar() {
                 </Link>
               </Box>
               <Box mx={1} style={{ cursor: 'pointer' }}>
-                <Typography variant="h6" color="inherit">
-                  cadastrar tema
-                </Typography>
+                <Link to='/cadastrarTema'>
+                  <Typography variant="h6" color="inherit">
+                    cadastrar tema
+                  </Typography>
+                </Link>
               </Box>
               <Box mx={1}>
                 <Link to='/login'>
