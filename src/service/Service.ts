@@ -20,22 +20,21 @@ export const getAll = async (url: any, setDados: any, headers: any) => {
   setDados(resposta.data);
 };
 
-export const post = async (
-  url: any,
-  dados: any,
-  setDados: any,
-  headers: any
-) => {
+export const getId = async (url: any, setDados: any, headers: any) => {
+  const resposta = await api.get(url, headers);
+  setDados(resposta.data);
+};
+
+export const post = async (url: any, dados: any, setDados: any, headers: any) => {
   const resposta = await api.post(url, dados, headers);
   setDados(resposta.data);
 };
 
-export const put = async (
-  url: any,
-  dados: any,
-  setDados: any,
-  headers: any
-) => {
+export const put = async (url: any, dados: any, setDados: any, headers: any) => {
   const resposta = await api.put(url, dados, headers);
   setDados(resposta.data);
 };
+
+export const deleteId = async(url: any, headers: any) => {
+  await api.delete(url, headers)
+}

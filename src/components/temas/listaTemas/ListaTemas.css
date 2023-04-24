@@ -1,14 +1,35 @@
+.listaTema{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 80vw;
+  margin: 0 auto;
+}
+
+.cardTema {
+  flex: 1;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loader {
+  display: grid;
+  place-items: center;
+  height: 80vh;
+}
+
 .lds-circle {
   display: inline-block;
   transform: translateZ(1px);
 }
 .lds-circle > div {
   display: inline-block;
-  width: 64px;
-  height: 64px;
+  width: 264px;
+  height: 264px;
   margin: 8px;
   border-radius: 50%;
-  background: #f06;
+  background: var(--blue-900);
   animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 @keyframes lds-circle {

@@ -1,13 +1,15 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import { Tema } from '../../../models/Tema';
-import { post } from '../../../service/Service';
+import { getId, post, put } from '../../../service/Service';
 
 function CadastroTema() {
   const history = useNavigate();
   const [token, setToken] = useLocalStorage('token');
+
+  const {id} = useParams<{id: string}>()
 
   const [tema, setTema] = useState<Tema>({
     id: 0,
@@ -21,33 +23,58 @@ function CadastroTema() {
     });
   }
 
+  async function getTemaById(id: string) {
+    await getId(`/temas/${id}`, setTema, {
+      headers: {
+        Authorization: token
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (id !== undefined){
+      getTemaById(id)
+    }
+  })
+
   useEffect(() => {
     if (token === '') {
       alert('Sem token não né meu bom');
       history('/login');
-    }
+    } 
   }, []);
 
   async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    try {
-      await post('/temas', tema, setTema, {
-        headers: {
-          Authorization: token,
-        },
-      });
-      alert('Tema cadastrado com sucesso');
-    } catch (error) {
-      alert('Deu ruim');
+    if(id !== undefined){
+      try {
+        await put('/temas', tema, setTema, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        alert('Tema atualizado com sucesso');
+        history('/temas')
+      } catch (error) {
+        alert('Deu ruim');
+      }
+    } else {
+      try {
+        await post('/temas', tema, setTema, {
+          headers: {
+            Authorization: token,
+          },
+        });
+        alert('Tema cadastrado com sucesso');
+        history('/temas')
+      } catch (error) {
+        alert('Deu ruim');
+      }
     }
   }
 
-  useEffect(() => {
-    if (tema.id !== 0) {
-      history('/temas');
-    }
-  }, [tema.id]);
+  
 
   return (
     <>
@@ -59,7 +86,8 @@ function CadastroTema() {
             gutterBottom
             fontWeight={'bold'}
           >
-            Cadastrar tema
+            {/* if ternário */}
+            {tema.id !== 0 ? 'Editar tema' : 'Cadastrar tema'}
           </Typography>
           <form onSubmit={onSubmit}>
             <Box display="flex" flexDirection={'column'} gap={2}>

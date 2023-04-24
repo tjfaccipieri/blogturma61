@@ -1,4 +1,4 @@
-import './ListaTemas.css'
+import './ListaTemas.css';
 import React, { useEffect, useState } from 'react';
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 import { Tema } from '../../../models/Tema';
 import { getAll } from '../../../service/Service';
 import useLocalStorage from 'react-use-localstorage';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ListaTemas() {
   const [temas, setTemas] = useState<Tema[]>([]);
@@ -40,11 +40,18 @@ function ListaTemas() {
 
   return (
     <>
-      {temas.length === 0 && (<div className="lds-circle"><div></div></div>)}
+      {temas.length === 0 && (
+        <div className="loader">
+          <div className="lds-circle">
+            <div></div>
+          </div>
+        </div>
+      )}
 
-      {temas.map((tema) => (
-        <Grid item marginY={2} mx={4}>
-          <Card >
+      <div className="listaTema">
+        {temas.map((tema) => (
+          // <Grid item marginY={2} mx={4}>
+          <Card variant="outlined" className="cardTema">
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
                 Tema:
@@ -54,16 +61,21 @@ function ListaTemas() {
               </Typography>
             </CardContent>
             <CardActions>
+              <Link to={`/editarTema/${tema.id}`}>
               <Button color="primary" variant="contained" size="small">
                 Editar
               </Button>
-              <Button color="secondary" variant="contained" size="small">
+              </Link>
+              <Link to={`/deletarTema/${tema.id}`}>
+              <Button color="error" variant="contained" size="small">
                 Deletar
               </Button>
+              </Link>
             </CardActions>
           </Card>
-        </Grid>
-      ))}
+          // </Grid>
+        ))}
+      </div>
     </>
   );
 }
