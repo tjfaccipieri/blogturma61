@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import useLocalStorage from 'react-use-localstorage';
 import { Postagem } from '../../../models/Postagem';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAll } from '../../../service/Service';
 import './ListaPostagens.css'
 
@@ -50,16 +50,24 @@ function ListaPostagens() {
                 {post.texto}
               </Typography>
               <Typography variant="body1" component="p">
-                Tema: {post.tema.descricao}
+                Tema: {post.tema?.descricao}
+              </Typography>
+              <Typography variant="body1" component="p">
+                {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat */}
+                Data: {Intl.DateTimeFormat('pt-BR', {dateStyle: 'full', timeStyle: 'medium'}).format(new Date(post.data))}
               </Typography>
             </CardContent>
             <CardActions>
+              <Link to={`/editarPostagem/${post.id}`}>
               <Button color="primary" variant="contained" size="small" fullWidth>
                 Editar
               </Button>
+              </Link>
+              <Link to={`/apagarPostagem/${post.id}`}>
               <Button color="error" variant="contained" size="small" fullWidth>
                 Deletar
               </Button>
+              </Link>
             </CardActions>
           </Card>
         </Box>

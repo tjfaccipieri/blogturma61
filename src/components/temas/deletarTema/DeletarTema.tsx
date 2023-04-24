@@ -1,4 +1,4 @@
-import { Grid, Typography, Button } from '@mui/material';
+import { Grid, Typography, Button, Card, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
@@ -43,15 +43,23 @@ function DeletarTema() {
     history('/temas')
   }
 
+  function voltar(){
+    history('/temas')
+  }
+
   return (
     <>
-      <Grid container justifyContent={'center'}>
-        <Grid item xs={6}>
-          <Typography>Deletar tema</Typography>
-          <Typography>Voceê tem certeza de que deseja deletar o tema: {tema?.descricao} </Typography>
+      <Grid container justifyContent={'center'} mt={4}>
+        <Grid item xs={3}>
+         <Card variant='outlined'>
+         <Typography variant='h3' gutterBottom align='center'>Deletar tema</Typography>
+          <Typography variant='body1' gutterBottom align='center'>Você tem certeza de que deseja deletar o tema: <br /> <strong>{tema?.descricao}</strong> </Typography>
 
-          <Button variant='contained' color='primary'>Não</Button>
-          <Button variant='contained' color='error' onClick={deletarTema} >Sim</Button>
+          <Box display='flex'>
+            <Button variant='contained' color='primary' onClick={voltar} fullWidth>Não</Button>
+            <Button variant='contained' color='error' onClick={deletarTema} fullWidth >Sim</Button>
+          </Box>
+         </Card>
 
         </Grid>
       </Grid>

@@ -41,10 +41,8 @@ function ListaTemas() {
   return (
     <>
       {temas.length === 0 && (
-        <div className="loader">
-          <div className="lds-circle">
-            <div></div>
-          </div>
+        <div className="loaderContainer">
+          <span className="loader"></span>
         </div>
       )}
 
