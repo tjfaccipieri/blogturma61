@@ -1,22 +1,30 @@
 import './Navbar.css';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { Box } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
+import { TokenState } from '../../../store/tokens/tokensReducer';
+import { addToken } from '../../../store/tokens/action';
 
 function Navbar() {
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState["token"]>(
+    (state) => state.token
+  )
   const history = useNavigate();
+  const dispatch = useDispatch();
 
   function logout() {
-    setToken('');
+    dispatch(addToken(''));
     alert('usuario deslogado com sucesso');
     history('/login');
   }
 
-  return (
-    <>
-      <AppBar position="static" style={{ background: 'var(--blue-600)' }}>
+  let navbarComponent
+
+  if(token !== '' ) {
+    navbarComponent = (
+<AppBar position="static" style={{ background: 'var(--blue-600)' }}>
         <Toolbar variant="dense">
           <Box display={'flex'} justifyContent={'space-between'} width={'100%'}>
             <Box style={{ cursor: 'pointer' }}>
@@ -65,6 +73,12 @@ function Navbar() {
           </Box>
         </Toolbar>
       </AppBar>
+    )
+  }
+
+  return (
+    <>
+      {navbarComponent}
     </>
   );
 }

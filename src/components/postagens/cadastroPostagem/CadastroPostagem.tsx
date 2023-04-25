@@ -17,10 +17,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Tema } from '../../../models/Tema';
 import useLocalStorage from 'react-use-localstorage';
 import { getAll, getId, put, post } from '../../../service/Service';
+import { useSelector } from 'react-redux';
+import { TokenState } from '../../../store/tokens/tokensReducer';
 
 function CadastroPostagem() {
   const history = useNavigate();
-  const [token, setToken] = useLocalStorage('token');
+  const token = useSelector<TokenState, TokenState["token"]>(
+    (state) => state.token
+  )
   const { id } = useParams<{ id: string }>();
   const [temas, setTemas] = useState<Tema[]>([]);
 

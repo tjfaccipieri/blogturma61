@@ -4,17 +4,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useLocalStorage from 'react-use-localstorage';
 import { Tema } from '../../../models/Tema';
 import { deleteId, getId } from '../../../service/Service';
+import { Postagem } from '../../../models/Postagem';
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 
-function DeletarTema() {
+function DeletarPostagem() {
   const history = useNavigate();
   const token = useSelector<TokenState, TokenState["token"]>(
     (state) => state.token
   )
   const {id} = useParams<{id: string}>()
 
-  const [tema, setTema] = useState<Tema>()
+  const [postagem, setPostagem] = useState<Postagem>()
 
   useEffect(() => {
     if (token === '') {
@@ -23,8 +24,8 @@ function DeletarTema() {
     } 
   }, []);
 
-  async function getTemaById(id: string) {
-    await getId(`/temas/${id}`, setTema, {
+  async function getPostagemById(id: string) {
+    await getId(`/postagens/${id}`, setPostagem, {
       headers: {
         Authorization: token
       }
@@ -33,35 +34,35 @@ function DeletarTema() {
 
   useEffect(() => {
     if (id !== undefined){
-      getTemaById(id)
+      getPostagemById(id)
     }
   })
 
-  function deletarTema() {
-    deleteId(`/temas/${id}`, {
+  function deletarPostagem() {
+    deleteId(`/postagens/${id}`, {
       headers: {
         Authorization: token
       }
     })
-    alert('Tema deletado com sucesso, eu acho')
-    history('/temas')
+    alert('Postagem deletada com sucesso, eu acho')
+    history('/postagens')
   }
 
   function voltar(){
-    history('/temas')
+    history('/postagens')
   }
 
   return (
     <>
       <Grid container justifyContent={'center'} mt={4}>
-        <Grid item xs={3}>
+        <Grid item xs={4}>
          <Card variant='outlined'>
-         <Typography variant='h3' gutterBottom align='center'>Deletar tema</Typography>
-          <Typography variant='body1' gutterBottom align='center'>Você tem certeza de que deseja deletar o tema: <br /> <strong>{tema?.descricao}</strong> </Typography>
+         <Typography variant='h3' gutterBottom align='center'>Deletar Postagem</Typography>
+          <Typography variant='body1' gutterBottom align='center'>Você tem certeza de que deseja deletar a postagem com título: <br /> <strong>{postagem?.titulo}</strong> </Typography>
 
           <Box display='flex'>
             <Button variant='contained' color='primary' onClick={voltar} fullWidth>Não</Button>
-            <Button variant='contained' color='error' onClick={deletarTema} fullWidth >Sim</Button>
+            <Button variant='contained' color='error' onClick={deletarPostagem} fullWidth >Sim</Button>
           </Box>
          </Card>
 
@@ -71,4 +72,4 @@ function DeletarTema() {
   )
 }
 
-export default DeletarTema
+export default DeletarPostagem

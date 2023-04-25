@@ -5,14 +5,20 @@ import { Link, useNavigate } from 'react-router-dom'
 import UsuarioLogin from '../../models/UsuarioLogin'
 import { login } from '../../service/Service'
 import useLocalStorage from 'react-use-localstorage'
+import { useDispatch } from 'react-redux'
+import { addToken } from '../../store/tokens/action';
 
 function Login() {
 
   // Hook responsável por navegar o usuário de uma tela para outra, sem precisar de um Link
   const history = useNavigate()
 
+  const dispatch = useDispatch()
+
   // Hook customizado, para adicionar informações no LocalStorage do navegador
-  const [token, setToken] = useLocalStorage('token')
+  const [token, setToken] = useState('')
+
+  const [isLoading, setIsLoading] = useState(false)
 
   // Hook para controle de estado da Váriavel de UsuarioLogin, irá manter os dados de email e senha durante o preenchimento do formulário pelo usuário
   const [userLogin, setUserLogin] = useState<UsuarioLogin>({
@@ -36,10 +42,12 @@ function Login() {
   async function onSubmit(event: ChangeEvent<HTMLFormElement>) {
     event.preventDefault()
     try {
+      setIsLoading(true)
       await login('/usuarios/logar', userLogin, setToken)
       alert('Usuario logado com sucesso')
 
     } catch(error) {
+      setIsLoading(false)
       console.log(error);
       alert('Usuário ou senha inválidos')
     }
@@ -48,6 +56,7 @@ function Login() {
   // Hook de controle de "efeito colateral" que irá ficar monitorando a variavel token, e quando ela mudar, vai cair no if... caso seja verdadeiro, navega nosso usuário para a tela de Home
   useEffect(() => {
     if(token !== '') {
+      dispatch(addToken(token))
       history('/home')
     }
   }, [token])
@@ -72,6 +81,8 @@ function Login() {
                 <TextField
                   type='password'
                   name='senha'
+                  error={userLogin.senha.length < 8 && userLogin.senha.length > 0}
+                  helperText={userLogin.senha.length < 8 && userLogin.senha.length > 0 ? 'Senha incorreta' : ''}
                   value={userLogin.senha}
                   onChange={(event: ChangeEvent<HTMLInputElement>) => updateModel(event)}
                   variant='outlined'
@@ -80,7 +91,9 @@ function Login() {
                   fullWidth />
                 <Box marginY={2}>
                   
-                    <Button type='submit' size='large' variant='contained' fullWidth>Logar</Button>
+                    <Button disabled={isLoading} type='submit' size='large' variant='contained' fullWidth>
+                      {isLoading ? (<span className="loaderLogin"></span>) : ('Logar')}
+                      </Button>
                   
                 </Box>
             </form>
