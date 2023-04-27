@@ -6,7 +6,8 @@ import UsuarioLogin from '../../models/UsuarioLogin'
 import { login } from '../../service/Service'
 import useLocalStorage from 'react-use-localstorage'
 import { useDispatch } from 'react-redux'
-import { addToken } from '../../store/tokens/action';
+import { addId, addToken } from '../../store/tokens/action';
+import { toast } from 'react-toastify'
 
 function Login() {
 
@@ -29,6 +30,14 @@ function Login() {
     senha: '',
     token: ''
   })
+  const [respUserLogin, setRespUserLogin] = useState<UsuarioLogin>({
+    id: 0,
+    nome: '',
+    usuario: '',
+    foto: '',
+    senha: '',
+    token: ''
+  })
 
   // função responsável por pegar o que foi digitado no campo, e atualizar o estado do Usuario
   function updateModel(event: ChangeEvent<HTMLInputElement>) {
@@ -43,23 +52,51 @@ function Login() {
     event.preventDefault()
     try {
       setIsLoading(true)
-      await login('/usuarios/logar', userLogin, setToken)
-      alert('Usuario logado com sucesso')
+      await login('/usuarios/logar', userLogin, setRespUserLogin)
+      toast.success('Usuario logado....', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
 
     } catch(error) {
       setIsLoading(false)
       console.log(error);
-      alert('Usuário ou senha inválidos')
+      // alert('Usuário ou senha inválidos')
+      toast.error('Ta errado isso ai', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     }
   }
 
   // Hook de controle de "efeito colateral" que irá ficar monitorando a variavel token, e quando ela mudar, vai cair no if... caso seja verdadeiro, navega nosso usuário para a tela de Home
+  // useEffect(() => {
+  //   if(token !== '') {
+  //     dispatch(addToken(token))
+  //     history('/home')
+  //   }
+  // }, [token])
+
   useEffect(() => {
-    if(token !== '') {
-      dispatch(addToken(token))
+    if(respUserLogin.token !== '') {
+      console.log(respUserLogin)
+      dispatch(addToken(respUserLogin.token))
+      dispatch(addId(respUserLogin.id.toString()))
       history('/home')
     }
-  }, [token])
+  }, [respUserLogin.token])
 
   return (
     <>

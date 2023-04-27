@@ -6,6 +6,7 @@ import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
 import ListaPostagens from '../listaPostagens/ListaPostagens';
 import './TabPostagens.css'
+import Carousel from '../../estaticos/carousel/Carousel';
 
 function TabPostagens() {
   const [value, setValue] = React.useState('1');
@@ -26,7 +27,7 @@ function TabPostagens() {
           <ListaPostagens />
         </TabPanel>
         <TabPanel value="2">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus similique nulla neque deserunt sed repudiandae ea accusantium, dicta nihil nisi nostrum ratione quod incidunt aspernatur delectus temporibus, sit, expedita recusandae.
+          <Carousel />
         </TabPanel>
       </TabContext>
   )

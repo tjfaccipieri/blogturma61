@@ -61,6 +61,9 @@ function ListaPostagens() {
                 Tema: {post.tema?.descricao}
               </Typography>
               <Typography variant="body1" component="p">
+                Postado por: {post.usuario?.nome}
+              </Typography>
+              <Typography variant="body1" component="p">
                 {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat */}
                 Data: {Intl.DateTimeFormat('pt-BR', {dateStyle: 'full', timeStyle: 'medium'}).format(new Date(post.data))}
               </Typography>
