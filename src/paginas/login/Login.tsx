@@ -105,7 +105,7 @@ function Login() {
           <Box display='flex' justifyContent={'center'} >
             <Grid item xs={6} >
               <form onSubmit={onSubmit}>
-                <Typography variant='h3' align='center' gutterBottom fontWeight='bold'>Entrar</Typography>
+                <Typography variant='h3' align='center' gutterBottom fontWeight='bold'>Dúvido você logar...</Typography>
                 <TextField
                   variant='outlined'
                   name='usuario'

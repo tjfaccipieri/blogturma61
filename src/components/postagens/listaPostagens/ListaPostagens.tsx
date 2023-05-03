@@ -22,6 +22,10 @@ function ListaPostagens() {
     (state) => state.token
   )
 
+  const userId = useSelector<TokenState, TokenState["id"]>(
+    (state) => state.id
+  )
+
 
   const [postagens, setPostagens] = useState<Postagem[]>([]);
   const history = useNavigate();
